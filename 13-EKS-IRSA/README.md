@@ -17,8 +17,10 @@ description: Learn the concept EKS IRSA - IAM Roles for Service Accounts
 
 ### IRSA et OIDC
 
+![IMAGES](./img/2.png)
 
 
+![IMAGES](./img/3.png)
 
 #### IRSA (IAM Roles for Service Accounts)
 
@@ -49,8 +51,19 @@ Avec IRSA, chaque application (ou pod) peut avoir ses propres permissions AWS, d
 
 IRSA permet donc de mieux protéger et contrôler l'accès aux services AWS depuis Kubernetes en donnant les permissions juste nécessaires à chaque application.
 
-![IMAGES](./img/2.png)
-![IMAGES](./img/3.png)
+### Comment ca marche ?
+
+![IMAGES](./img/4.png)
+
+### Qu'est ce qu'on va apprendre
+
+Pour la partie 01-ekscluster-terraform-manifests
+
+![IMAGES](./img/5.png)
+
+Pour la partie 02-eks-irsa-demo-terraform-manifests
+
+![IMAGES](./img/6.png)
 
 ## Step-02: Verify Terraform State Storage - EKS Cluster
 - **Folder:** `13-EKS-IRSA/01-ekscluster-terraform-manifests`
