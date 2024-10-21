@@ -235,18 +235,6 @@ vpc_id = "vpc-076f0a532d075cfc6"
 ...
 ```
 
-On peut voir dans AWS > IAM > Fournisseurs d'identité
-
-![IMAGES](./img/7.png)
-
-L'audience (client_id_list) qui est : sts.amazonaws.com
-
-![IMAGES](./img/9.png)
-
-Et dans le cluster EKS :
-
-![IMAGES](./img/8.png)
-
 ## Step-09: Configure Kubeconfig for kubectl
 ```t
 # Configure kubeconfig for kubectl
@@ -274,6 +262,19 @@ Go to Services -> EKS -> hr-dev-eksdemo1 -> Configuration -> Details -> OpenID C
 # Sample
 https://oidc.eks.eu-west-3.amazonaws.com/id/EC973221A6C1BC248C79CFD5455EEECC/.well-known/openid-configuration
 ```
+On peut voir dans AWS > IAM > Fournisseurs d'identité
+
+![IMAGES](./img/7.png)
+
+L'audience (client_id_list) qui est : sts.amazonaws.com
+
+![IMAGES](./img/9.png)
+
+Et dans le cluster EKS :
+
+![IMAGES](./img/8.png)
+
+
 - **Sample Output from EKS OpenID Connect Well Known Configuration URL**
 ```json
 // 20220106104407
