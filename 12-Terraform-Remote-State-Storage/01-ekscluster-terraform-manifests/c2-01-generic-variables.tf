@@ -1,19 +1,19 @@
-# Input Variables
-# AWS Region
+# Variables d'entrée pour la région AWS, l'environnement et la division métier
+
 variable "aws_region" {
-  description = "Region in which AWS Resources to be created"
-  type = string
-  default = "us-east-1"  
+  description = "Région où les ressources AWS seront créées"
+  type        = string
+  default     = "eu-west-3" # Région par défaut
 }
-# Environment Variable
+
 variable "environment" {
-  description = "Environment Variable used as a prefix"
-  type = string
-  default = "dev"
+  description = "Nom de l'environnement (dev, stag, prod)"
+  type        = string
+  default     = "dev"
 }
-# Business Division
+
 variable "business_divsion" {
-  description = "Business Division in the large organization this Infrastructure belongs"
-  type = string
-  default = "SAP"
+  description = "Division métier dans une grande organisation"
+  type        = string
+  default     = "SAP"
 }

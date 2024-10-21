@@ -274,7 +274,7 @@ terraform apply -auto-approve
 ```t
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes
@@ -324,7 +324,7 @@ aws configure list-profiles
 aws configure --profile hr-dev-eksreadonly1
 AWS Access Key ID: AKIASUF7HC7SXRQN6CFR
 AWS Secret Access Key: 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
-Default region: us-east-1
+Default region: eu-west-3
 Default output format: json
 
 # Get current user configured in AWS CLI
@@ -385,10 +385,10 @@ cat $HOME/.kube/config
 
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Describe Cluster
-aws eks --region us-east-1 describe-cluster --name hr-dev-eksdemo1 --query cluster.status
+aws eks --region eu-west-3 describe-cluster --name hr-dev-eksdemo1 --query cluster.status
 
 # Verify Kubernetes Nodes
 kubectl get nodes
@@ -564,7 +564,7 @@ cat $HOME/.kube/config
 
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Nodes
 kubectl get nodes
@@ -598,11 +598,11 @@ Kalyans-Mac-mini:01-ekscluster-terraform-manifests kalyanreddy$
 - Login to AWS Mgmt Console
   - **Username:** hr-dev-eksreadonly1
   - **Password:** @EKSUser101
-- Go to EKS Servie: https://console.aws.amazon.com/eks/home?region=us-east-1#
+- Go to EKS Servie: https://console.aws.amazon.com/eks/home?region=eu-west-3#
 ```t
 # Error
 Error loading clusters
-User: arn:aws:iam::180789647333:user/hr-dev-eksadmin1 is not authorized to perform: eks:ListClusters on resource: arn:aws:eks:us-east-1:180789647333:cluster/*
+User: arn:aws:iam::180789647333:user/hr-dev-eksadmin1 is not authorized to perform: eks:ListClusters on resource: arn:aws:eks:eu-west-3:180789647333:cluster/*
 ```  
 - Click on **Switch Role**
   - **Account:** <YOUR_AWS_ACCOUNT_ID> 

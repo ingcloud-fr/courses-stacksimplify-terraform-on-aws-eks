@@ -19,7 +19,7 @@ data "terraform_remote_state" "eks" {
   config = {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
   }
 }
 
@@ -29,7 +29,7 @@ data "terraform_remote_state" "efs" {
   config = {
     bucket = "terraform-on-aws-eks"
     key    = "dev/efs-csi/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
   }
 }
 ```

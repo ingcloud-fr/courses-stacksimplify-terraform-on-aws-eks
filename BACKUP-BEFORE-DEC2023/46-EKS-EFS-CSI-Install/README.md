@@ -48,7 +48,7 @@ terraform apply -auto-approve
 
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes
@@ -171,7 +171,7 @@ resource "helm_release" "efs_csi_driver" {
 
   set {
     name = "image.repository"
-    value = "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-efs-csi-driver" # Changes based on Region - This is for us-east-1 Additional Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html
+    value = "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-efs-csi-driver" # Changes based on Region - This is for eu-west-3 Additional Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html
   }       
 
   set {

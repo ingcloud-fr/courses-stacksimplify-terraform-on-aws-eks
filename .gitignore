@@ -15,6 +15,10 @@ crash.log
 #
 # example.tfvars
 
+**/eks-terraform-key.pem
+eks-terraform-key.pem
+*.pem
+
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
 override.tf

@@ -18,12 +18,12 @@
 ### Step-03-01: Public Subnet
 - **VPC ID:** my-manual-vpc
 - **Subnet Name::** my-public-subnet-1
-- **Availability zone:** us-east-1a
+- **Availability zone:** eu-west-3a
 - **IPv4 CIDR Block:** 10.0.1.0/24
 
 ### Step-03-02: Private Subnet
 - **Subnet Name::** my-private-subnet-1
-- **Availability zone:** us-east-1a
+- **Availability zone:** eu-west-3a
 - **IPv4 CIDR Block:** 10.0.101.0/24
 - Click on **Create Subnet**
 

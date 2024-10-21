@@ -69,16 +69,16 @@ curl http://google.com/
 curl <INTERNAL-INGRESS-LB-DNS>
 
 # Default Backend Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com
 
 # App1 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com/app1/index.html
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com/app1/index.html
 
 # App2 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com/app2/index.html
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com/app2/index.html
 
 # App3 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com
 ```
 
 
@@ -228,16 +228,16 @@ curl http://google.com/
 curl <INTERNAL-INGRESS-LB-DNS>
 
 # Default Backend Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com
 
 # App1 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com/app1/index.html
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com/app1/index.html
 
 # App2 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com/app2/index.html
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com/app2/index.html
 
 # App3 Curl Test
-curl internal-ingress-internal-lb-1839544354.us-east-1.elb.amazonaws.com
+curl internal-ingress-internal-lb-1839544354.eu-west-3.elb.amazonaws.com
 ```
 
 ## Step-14: Clean-Up Ingress

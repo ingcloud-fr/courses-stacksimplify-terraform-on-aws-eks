@@ -197,7 +197,7 @@ aws configure list-profiles
 aws configure --profile hr-dev-eksadmin1
 AWS Access Key ID: AKIASUF7HC7S4XG3ZL3W
 AWS Secret Access Key: 2Qu53xZVjazSnDTTp5PH1PswbUKff0SByaNa53qE
-Default region: us-east-1
+Default region: eu-west-3
 Default output format: json
 
 # To list all your profile names
@@ -212,7 +212,7 @@ cat $HOME/.kube/config
 
 # Configure kubeconfig for kubectl with AWS CLI Profile hr-dev-eksadmin1
 aws eks --region <region-code> update-kubeconfig --name <cluster_name> --profile <AWS-CLI-PROFILE-NAME>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1 --profile hr-dev-eksadmin1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1 --profile hr-dev-eksadmin1
 Observation:
 1. It should pass
 
@@ -275,7 +275,7 @@ aws configure list-profiles
 aws configure --profile hr-dev-eksadmin2
 AWS Access Key ID: AKIASUF7HC7SRVES7ADE
 AWS Secret Access Key: sASjutJvDS9GS0R7MFBMXr/F05fFV53kMpVnlyQ5
-Default region: us-east-1
+Default region: eu-west-3
 Default output format: json
 
 # To list all your profile names
@@ -290,7 +290,7 @@ cat $HOME/.kube/config
 
 # Configure kubeconfig for kubectl with AWS CLI Profile hr-dev-eksadmin1
 aws eks --region <region-code> update-kubeconfig --name <cluster_name> --profile <AWS-CLI-PROFILE-NAME>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1 --profile hr-dev-eksadmin2
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1 --profile hr-dev-eksadmin2
 Observation:
 1. It should pass
 

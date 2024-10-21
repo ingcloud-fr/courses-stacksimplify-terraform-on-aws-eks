@@ -11,9 +11,9 @@ terraform {
       source = "hashicorp/kubernetes"
       #version = "~> 2.7"
       version = ">= 2.20"
-    }  
+    }
     time = {
-      source = "hashicorp/time"
+      source  = "hashicorp/time"
       version = "~> 0.7"
     }
   }
@@ -21,11 +21,11 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/aws-lbc-ingress/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3"
 
     # For State Locking
-    dynamodb_table = "dev-aws-lbc-ingress"    
-  }    
+    dynamodb_table = "dev-aws-lbc-ingress"
+  }
 }
 
 # Time Provider

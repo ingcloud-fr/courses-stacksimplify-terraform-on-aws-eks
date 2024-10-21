@@ -31,8 +31,8 @@ Controlled By:  ReplicaSet/ebs-csi-controller-56dfd4fccc
 Containers:
   ebs-plugin:
     Container ID:  docker://3da0c2e43d81696f9e83f6b81dc4a60469d6a56fb2c231932e05a642b7c57160
-    Image:         602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0
-    Image ID:      docker-pullable://602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-ebs-csi-driver@sha256:02194fcba95abf59f49468270e73573ec6ec30182693bb45e33c38fc7a399d05
+    Image:         602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0
+    Image ID:      docker-pullable://602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver@sha256:02194fcba95abf59f49468270e73573ec6ec30182693bb45e33c38fc7a399d05
     Port:          9808/TCP
     Host Port:     0/TCP
     Args:
@@ -51,8 +51,8 @@ Containers:
       CSI_NODE_NAME:                 (v1:spec.nodeName)
       AWS_ACCESS_KEY_ID:            <set to the key 'key_id' in secret 'aws-secret'>      Optional: true
       AWS_SECRET_ACCESS_KEY:        <set to the key 'access_key' in secret 'aws-secret'>  Optional: true
-      AWS_DEFAULT_REGION:           us-east-1
-      AWS_REGION:                   us-east-1
+      AWS_DEFAULT_REGION:           eu-west-3
+      AWS_REGION:                   eu-west-3
       AWS_ROLE_ARN:                 arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
       AWS_WEB_IDENTITY_TOKEN_FILE:  /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     Mounts:
@@ -78,8 +78,8 @@ Containers:
     Restart Count:  0
     Environment:
       ADDRESS:                      /var/lib/csi/sockets/pluginproxy/csi.sock
-      AWS_DEFAULT_REGION:           us-east-1
-      AWS_REGION:                   us-east-1
+      AWS_DEFAULT_REGION:           eu-west-3
+      AWS_REGION:                   eu-west-3
       AWS_ROLE_ARN:                 arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
       AWS_WEB_IDENTITY_TOKEN_FILE:  /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     Mounts:
@@ -102,8 +102,8 @@ Containers:
     Restart Count:  0
     Environment:
       ADDRESS:                      /var/lib/csi/sockets/pluginproxy/csi.sock
-      AWS_DEFAULT_REGION:           us-east-1
-      AWS_REGION:                   us-east-1
+      AWS_DEFAULT_REGION:           eu-west-3
+      AWS_REGION:                   eu-west-3
       AWS_ROLE_ARN:                 arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
       AWS_WEB_IDENTITY_TOKEN_FILE:  /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     Mounts:
@@ -125,8 +125,8 @@ Containers:
     Restart Count:  0
     Environment:
       ADDRESS:                      /var/lib/csi/sockets/pluginproxy/csi.sock
-      AWS_DEFAULT_REGION:           us-east-1
-      AWS_REGION:                   us-east-1
+      AWS_DEFAULT_REGION:           eu-west-3
+      AWS_REGION:                   eu-west-3
       AWS_ROLE_ARN:                 arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
       AWS_WEB_IDENTITY_TOKEN_FILE:  /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     Mounts:
@@ -146,8 +146,8 @@ Containers:
     Ready:          True
     Restart Count:  0
     Environment:
-      AWS_DEFAULT_REGION:           us-east-1
-      AWS_REGION:                   us-east-1
+      AWS_DEFAULT_REGION:           eu-west-3
+      AWS_REGION:                   eu-west-3
       AWS_ROLE_ARN:                 arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
       AWS_WEB_IDENTITY_TOKEN_FILE:  /var/run/secrets/eks.amazonaws.com/serviceaccount/token
     Mounts:
@@ -182,8 +182,8 @@ Events:
   Type    Reason     Age   From               Message
   ----    ------     ----  ----               -------
   Normal  Scheduled  16m   default-scheduler  Successfully assigned kube-system/ebs-csi-controller-56dfd4fccc-7fgbr to ip-10-0-101-61.ec2.internal
-  Normal  Pulling    15m   kubelet            Pulling image "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0"
-  Normal  Pulled     15m   kubelet            Successfully pulled image "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0" in 2.465333061s
+  Normal  Pulling    15m   kubelet            Pulling image "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0"
+  Normal  Pulled     15m   kubelet            Successfully pulled image "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver:v1.5.0" in 2.465333061s
   Normal  Created    15m   kubelet            Created container ebs-plugin
   Normal  Started    15m   kubelet            Started container ebs-plugin
   Normal  Pulling    15m   kubelet            Pulling image "k8s.gcr.io/sig-storage/csi-provisioner:v2.1.1"

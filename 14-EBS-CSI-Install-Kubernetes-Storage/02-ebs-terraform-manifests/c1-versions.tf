@@ -6,7 +6,7 @@ terraform {
       source = "hashicorp/aws"
       #version = ">= 4.65"
       version = ">= 5.31"
-     }
+    }
     helm = {
       source = "hashicorp/helm"
       #version = "2.4.1"
@@ -24,11 +24,11 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/ebs-storage/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3"
 
     # For State Locking
-    dynamodb_table = "dev-ebs-storage"    
-  }     
+    dynamodb_table = "dev-ebs-storage"
+  }
 }
 
 # Terraform AWS Provider Block

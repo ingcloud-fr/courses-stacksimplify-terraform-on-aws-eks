@@ -59,7 +59,7 @@ data "terraform_remote_state" "eks" {
 ```t
 # Terraform AWS Provider Block
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-3"
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -223,7 +223,7 @@ Observation:
 # Access Sample Application on Browser
 http://<CLB-DNS-NAME>
 http://<NLB-DNS-NAME>
-http://abb2f2b480148414f824ed3cd843bdf0-805914492.us-east-1.elb.amazonaws.com
+http://abb2f2b480148414f824ed3cd843bdf0-805914492.eu-west-3.elb.amazonaws.com
 ```
 
 ## Step-12: Verify Kubernetes Resources via AWS Management console

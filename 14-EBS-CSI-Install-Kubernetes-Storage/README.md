@@ -27,7 +27,7 @@ description: Learn to implement EKS IAM Role for Kubernetes Service Accounts
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
  
     # For State Locking
     dynamodb_table = "dev-ekscluster"    
@@ -43,7 +43,7 @@ description: Learn to implement EKS IAM Role for Kubernetes Service Accounts
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
  
     # For State Locking
     dynamodb_table = "dev-ekscluster"    
@@ -76,7 +76,7 @@ terraform state list
 ```t
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes
@@ -118,7 +118,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/ebs-storage/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-ebs-storage"    
@@ -152,7 +152,7 @@ data "terraform_remote_state" "eks" {
 variable "aws_region" {
   description = "Region in which AWS Resources to be created"
   type = string
-  default = "us-east-1"  
+  default = "eu-west-3"  
 }
 # Environment Variable
 variable "environment" {
@@ -186,7 +186,7 @@ locals {
 - **Folder:** `14-EBS-CSI-Install-Kubernetes-Storage/02-ebs-terraform-manifests`
 ```t
 # Generic Variables
-aws_region = "us-east-1"
+aws_region = "eu-west-3"
 environment = "dev"
 business_divsion = "hr"
 ```
@@ -300,7 +300,7 @@ resource "helm_release" "ebs_csi_driver" {
 
   set {
     name = "image.repository"
-    value = "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/aws-ebs-csi-driver" # Changes based on Region - This is for us-east-1 Additional Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html
+    value = "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver" # Changes based on Region - This is for eu-west-3 Additional Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html
   }       
 
   set {
@@ -353,7 +353,7 @@ Mainly verify the output related to HELM RELEASE named "ebs_csi_helm_metadata"
 ```t
 # Configure kubeconfig for kubectl (Optional - If already not configured)
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes

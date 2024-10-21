@@ -1,6 +1,6 @@
 # Terraform for_each Meta-Argument with Functions toset, tomap
 ## Step-00: Pre-requisite Note
-- We are using the `default vpc` in `us-east-1` region
+- We are using the `default vpc` in `eu-west-3` region
 
 ## Step-01: Introduction
 - `for_each` Meta-Argument
@@ -92,14 +92,14 @@ terraform plan
 # Terraform Apply
 terraform apply -auto-approve
 Observations: 
-1) Should fail with not creating EC2 Instance in 1 availability zone in region us-east-1
+1) Should fail with not creating EC2 Instance in 1 availability zone in region eu-west-3
 2) We will learn about fixing this in next two sections 05-03 and 05-04
 3) Outputs not displayed as we failed during terraform apply. We will see and review outputs in section 05-04
 ```
 
 ## Step-06: Expected Error Message
 ```t
-Error: Error launching source instance: Unsupported: Your requested instance type (t3.micro) is not supported in your requested Availability Zone (us-east-1e). Please retry your request by not specifying an Availability Zone or choosing us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f.
+Error: Error launching source instance: Unsupported: Your requested instance type (t3.micro) is not supported in your requested Availability Zone (eu-west-3e). Please retry your request by not specifying an Availability Zone or choosing eu-west-3a, eu-west-3b, eu-west-3c, eu-west-3d, eu-west-3f.
 	status code: 400, request id: 52e0e358-17a0-434b-80de-5bc5f956eedb
 
   on c5-ec2instance.tf line 35, in resource "aws_instance" "myec2vm":

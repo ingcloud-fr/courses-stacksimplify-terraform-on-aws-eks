@@ -1,25 +1,34 @@
-# Terraform Settings Block
+# Bloc de configuration de Terraform
 terraform {
-  required_version = ">= 1.6.0"
+  required_version = ">= 1.8.0" # Spécifie la version minimale de Terraform requise
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      #version = ">= 4.65"      
-      version = ">= 5.31"      
-     }
+      source = "hashicorp/aws" # Fournisseur AWS
+      #version = ">= 5.72"       # Version minimale requise du fournisseur AWS (même majeure)
+      version = "~> 5.72" # Contrainte de compatibilité mineure
+    }
+    local = {
+      source = "hashicorp/local"
+    }
   }
   # Adding Backend as S3 for Remote State Storage
   backend "s3" {
-    bucket = "terraform-on-aws-eks"
+    bucket = "ingcloud-terraform-state"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
- 
+    region = "eu-west-3"
+
     # For State Locking
-    dynamodb_table = "dev-ekscluster"    
-  }  
+    dynamodb_table = "tf-dev-ekscluster"
+  }
 }
 
-# Terraform Provider Block
+# Bloc fournisseur Terraform pour AWS
 provider "aws" {
-  region = var.aws_region
+  region = var.aws_region # Récupère la région AWS depuis les variables
+  default_tags {
+    tags = {
+      Managed = "ByTerraform"
+    }
+  }
 }
+

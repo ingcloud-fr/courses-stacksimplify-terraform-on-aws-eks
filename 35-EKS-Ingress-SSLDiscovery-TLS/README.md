@@ -34,7 +34,7 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'   
     ## SSL Settings
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/632a3ff6-3f6d-464c-9121-b9d97481a76b
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:180789647333:certificate/632a3ff6-3f6d-464c-9121-b9d97481a76b
     #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01 #Optional (Picks default if not used)    
     # SSL Redirect Setting
     alb.ingress.kubernetes.io/ssl-redirect: '443'
@@ -165,7 +165,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/aws-lbc-ingress/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-aws-lbc-ingress"    

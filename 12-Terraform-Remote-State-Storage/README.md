@@ -32,9 +32,9 @@ description: Implement Terraform Remote State Storage with AWS S3 and DynamnoDB
 
 ## Step-02: Create S3 Bucket
 - Go to Services -> S3 -> Create Bucket
-- **Bucket name:** terraform-on-aws-eks
-- **Region:** US-East (N.Virginia)
-- **Bucket settings for Block Public Access:** leave to defaults
+- **Bucket name:** ingcloud-terraform-state (ou autre)
+- **Region:** EU-West-3 (Paris)
+- **Bucket settings for Block Public Access:** leave to defaults (deny all public access)
 - **Bucket Versioning:** Enable
 - Rest all leave to **defaults**
 - Click on **Create Bucket**
@@ -56,9 +56,9 @@ description: Implement Terraform Remote State Storage with AWS S3 and DynamnoDB
 ```t
   # Adding Backend as S3 for Remote State Storage
   backend "s3" {
-    bucket = "terraform-on-aws-eks"
+    bucket = "ingcloud-terraform-state"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
  
     # For State Locking
     dynamodb_table = "dev-ekscluster"    
@@ -70,7 +70,7 @@ description: Implement Terraform Remote State Storage with AWS S3 and DynamnoDB
 - Update `environment` to `dev`
 ```t
 # Generic Variables
-aws_region = "us-east-1"
+aws_region = "eu-west-3"
 environment = "dev"
 business_divsion = "hr"
 ```
@@ -79,14 +79,14 @@ business_divsion = "hr"
 - Understand about Terraform State Locking Advantages
 ### Step-05-01: EKS Cluster DynamoDB Table
 - Create Dynamo DB Table for EKS Cluster
-  - **Table Name:** dev-ekscluster
-  - **Partition key (Primary Key):** LockID (Type as String)
+  - **Table Name:** tf-dev-ekscluster
+  - **Partition key (Primary Key):** LockID (Type as String) => doit porter ce nom LockID
   - **Table settings:** Use default settings (checked)
   - Click on **Create**
 ### Step-05-02: App1 Kubernetes DynamoDB Table
 - Create Dynamo DB Table for app1k8s
-  - **Table Name:** dev-app1k8s
-  - **Partition key (Primary Key):** LockID (Type as String)
+  - **Table Name:** tf-dev-app1k8s
+  - **Partition key (Primary Key):** LockID (Type as String) => doit porter ce nom LockID
   - **Table settings:** Use default settings (checked)
   - Click on **Create**
 
@@ -131,7 +131,7 @@ Observation:
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/app1k8s/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-app1k8s"    
@@ -147,7 +147,7 @@ data "terraform_remote_state" "eks" {
   config = {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
   }
 }
 ```
@@ -189,7 +189,7 @@ Observation:
 ```t
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # List Worker Nodes
 kubectl get nodes
@@ -217,7 +217,7 @@ Observation:
 
 # Access Sample Application on Browser
 http://<LB-DNS-NAME>
-http://abb2f2b480148414f824ed3cd843bdf0-805914492.us-east-1.elb.amazonaws.com
+http://abb2f2b480148414f824ed3cd843bdf0-805914492.eu-west-3.elb.amazonaws.com
 ```
 
 

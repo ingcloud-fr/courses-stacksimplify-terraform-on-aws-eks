@@ -24,7 +24,7 @@ description: Deploy sample application to EKS Cluster
 ```t
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-stag-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-stag-eksdemo1
 
 # List Worker Nodes
 kubectl get nodes
@@ -135,8 +135,8 @@ kubectl get svc
 Kalyans-Mac-mini:09-Kubernetes-Deployment-and-Service kalyanreddy$ kubectl get svc
 NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP                                                                     PORT(S)        AGE
 kubernetes                ClusterIP      172.20.0.1       <none>                                                                          443/TCP        3h42m
-myapp1-lb-service         LoadBalancer   172.20.147.138   ab64af75f852f45e5ad7bf19a8399135-1635652031.us-east-1.elb.amazonaws.com         80:32648/TCP   25s
-myapp1-lb-service-nlb     LoadBalancer   172.20.58.57     af738ec8a524e4288bf83ee61962a30f-55388eedfc94fa0e.elb.us-east-1.amazonaws.com   80:32288/TCP   24s
+myapp1-lb-service         LoadBalancer   172.20.147.138   ab64af75f852f45e5ad7bf19a8399135-1635652031.eu-west-3.elb.amazonaws.com         80:32648/TCP   25s
+myapp1-lb-service-nlb     LoadBalancer   172.20.58.57     af738ec8a524e4288bf83ee61962a30f-55388eedfc94fa0e.elb.eu-west-3.amazonaws.com   80:32288/TCP   24s
 myapp1-nodeport-service   NodePort       172.20.246.38    <none>                                                                          80:31280/TCP   25s
 Kalyans-Mac-mini:09-Kubernetes-Deployment-and-Service kalyanreddy$ 
 
@@ -160,10 +160,10 @@ kubectl get svc
 
 # Access Sample Application on Browser
 http://<CLB-LB-DNS-NAME>
-http://ab64af75f852f45e5ad7bf19a8399135-1635652031.us-east-1.elb.amazonaws.com
+http://ab64af75f852f45e5ad7bf19a8399135-1635652031.eu-west-3.elb.amazonaws.com
 
 http://<NLB-LB-DNS-NAME>
-http://af738ec8a524e4288bf83ee61962a30f-55388eedfc94fa0e.elb.us-east-1.amazonaws.com
+http://af738ec8a524e4288bf83ee61962a30f-55388eedfc94fa0e.elb.eu-west-3.amazonaws.com
 ```   
 
 ## Step-08: Node Port Service Port - Update Node Security Group

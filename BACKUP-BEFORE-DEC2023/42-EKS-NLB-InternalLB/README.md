@@ -58,7 +58,7 @@ curl http://google.com/
 curl <INTERNAL-NETWORK-LB-DNS>
 
 # Internal Network LB Curl Test
-curl lbc-network-lb-internal-demo-7031ade4ca457080.elb.us-east-1.amazonaws.com
+curl lbc-network-lb-internal-demo-7031ade4ca457080.elb.eu-west-3.amazonaws.com
 ```
 
 
@@ -197,7 +197,7 @@ curl http://google.com/
 curl <INTERNAL-NETWORK-LB-DNS>
 
 # Internal Network LB Curl Test
-curl lbc-network-lb-internal-demo-7031ade4ca457080.elb.us-east-1.amazonaws.com
+curl lbc-network-lb-internal-demo-7031ade4ca457080.elb.eu-west-3.amazonaws.com
 Observation: 
 1. This should fail. 
 2. Network LB DNS resolves to 10.x.x.x subnet (VPC Subnet ) but we are inside EKS Cluster, inside a curl-pod, so lets use this Kubernetes Service Cluster-IP once.
@@ -218,10 +218,10 @@ ssh -i <PRIVATE_KEY> ec2-user@<BASTION-HOST-PublicIP>
 ssh -i ../01-ekscluster-terraform-manifests/private-key/eks-terraform-key.pem ec2-user@54.90.160.218
 
 # NSLOOKUP Internal Network LB DNS
-nslookup lbc-network-lb-internal-d34ab3da5f17aea1.elb.us-east-1.amazonaws.com
+nslookup lbc-network-lb-internal-d34ab3da5f17aea1.elb.eu-west-3.amazonaws.com
 
 # Internal Network LB Curl Test
-curl lbc-network-lb-internal-d34ab3da5f17aea1.elb.us-east-1.amazonaws.com
+curl lbc-network-lb-internal-d34ab3da5f17aea1.elb.eu-west-3.amazonaws.com
 Observation: Should work
 
 ## Sample Output
@@ -237,15 +237,15 @@ https://aws.amazon.com/amazon-linux-2/
 Run "sudo yum update" to apply all updates.
 -bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
 [ec2-user@ip-10-0-101-207 ~]$ sudo su -
-[root@ip-10-0-101-207 ~]# nslookup lbc-network-lb-internal-d34ab3da5f17aea1.elb.us-east-1.amazonaws.com
+[root@ip-10-0-101-207 ~]# nslookup lbc-network-lb-internal-d34ab3da5f17aea1.elb.eu-west-3.amazonaws.com
 Server:		10.0.0.2
 Address:	10.0.0.2#53
 
 Non-authoritative answer:
-Name:	lbc-network-lb-internal-d34ab3da5f17aea1.elb.us-east-1.amazonaws.com
+Name:	lbc-network-lb-internal-d34ab3da5f17aea1.elb.eu-west-3.amazonaws.com
 Address: 10.0.1.37
 
-[root@ip-10-0-101-207 ~]# curl lbc-network-lb-internal-d34ab3da5f17aea1.elb.us-east-1.amazonaws.com
+[root@ip-10-0-101-207 ~]# curl lbc-network-lb-internal-d34ab3da5f17aea1.elb.eu-west-3.amazonaws.com
 <!DOCTYPE html>
 <html>
    <body style="background-color:lightgoldenrodyellow;">

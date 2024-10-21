@@ -7,7 +7,7 @@ data:
   cluster.name: hr-dev-eksdemo1
   http.port: "2020"
   http.server: "On"
-  logs.region: us-east-1
+  logs.region: eu-west-3
   read.head: "Off"
   read.tail: "On"
 

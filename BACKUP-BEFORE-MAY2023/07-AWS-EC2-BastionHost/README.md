@@ -40,12 +40,12 @@ data "aws_availability_zones" "available" {
 variable "vpc_availability_zones" {
   description = "VPC Availability Zones"
   type = list(string)
-  default = ["us-east-1a", "us-east-1b"]
+  default = ["eu-west-3a", "eu-west-3b"]
 }
 */
 
 # Change-4: Comment hard-coded Availability Zones variable in File: vpc.auto.tfvars 
-#vpc_availability_zones = ["us-east-1a", "us-east-1b"]  
+#vpc_availability_zones = ["eu-west-3a", "eu-west-3b"]  
 ```
 
 ## Step-02: Create EC2 Key pair and save it

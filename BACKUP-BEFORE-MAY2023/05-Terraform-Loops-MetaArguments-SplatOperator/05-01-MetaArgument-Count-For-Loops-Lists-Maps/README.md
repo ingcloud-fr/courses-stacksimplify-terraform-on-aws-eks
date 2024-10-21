@@ -1,7 +1,7 @@
 # Terraform For Loops, Lists, Maps and Count Meta-Argument
 
 ## Step-00: Pre-requisite Note
-- We are using the `default vpc` in `us-east-1` region
+- We are using the `default vpc` in `eu-west-3` region
 
 ## Step-01: Introduction
 - Terraform Meta-Argument: `Count`

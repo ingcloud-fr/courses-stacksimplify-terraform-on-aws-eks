@@ -6,20 +6,20 @@ terraform {
       source = "hashicorp/aws"
       #version = "~> 4.14"
       version = ">= 4.65"
-     }
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">= 2.20"
-    }     
+    }
   }
   # Adding Backend as S3 for Remote State Storage
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/efs-sampleapp-demo/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3"
 
     # For State Locking
-    dynamodb_table = "dev-efs-sampleapp-demo"    
-  }    
+    dynamodb_table = "dev-efs-sampleapp-demo"
+  }
 }
 

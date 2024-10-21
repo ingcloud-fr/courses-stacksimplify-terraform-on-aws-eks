@@ -35,7 +35,7 @@ terraform apply -auto-approve
 
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes
@@ -59,7 +59,7 @@ terraform apply -auto-approve
 
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify EBS CSI Controller and Node pods running in kube-system namespace
 kubectl -n kube-system get pods
@@ -99,7 +99,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/dev-ebs-sampleapp-demo/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-ebs-sampleapp-demo"    
@@ -115,7 +115,7 @@ data "terraform_remote_state" "eks" {
   config = {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
   }
 }
 ```
@@ -124,7 +124,7 @@ data "terraform_remote_state" "eks" {
 ```t
 # Terraform AWS Provider Block
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-3"
 }
 
 # Datasource: EKS Cluster

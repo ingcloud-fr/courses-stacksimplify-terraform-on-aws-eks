@@ -5,9 +5,9 @@ data "aws_ec2_instance_type_offerings" "my_ins_type1" {
     values = ["t3.micro"]
   }
   filter {
-    name   = "location"
-    #values = ["us-east-1a"]
-    values = ["us-east-1e"]
+    name = "location"
+    #values = ["eu-west-3a"]
+    values = ["eu-west-3e"]
   }
   location_type = "availability-zone"
 }

@@ -37,7 +37,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/aws-externaldns/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-aws-externaldns"    
@@ -72,7 +72,7 @@ data "terraform_remote_state" "eks" {
 variable "aws_region" {
   description = "Region in which AWS Resources to be created"
   type = string
-  default = "us-east-1"  
+  default = "eu-west-3"  
 }
 # Environment Variable
 variable "environment" {
@@ -263,7 +263,7 @@ output "externaldns_helm_metadata" {
 - **Project Folder:** 03-externaldns-install-terraform-manifests
 ```t
 # Generic Variables
-aws_region = "us-east-1"
+aws_region = "eu-west-3"
 environment = "dev"
 business_divsion = "hr"
 ```

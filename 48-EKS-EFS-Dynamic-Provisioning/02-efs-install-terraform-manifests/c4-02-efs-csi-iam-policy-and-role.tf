@@ -8,7 +8,7 @@ resource "aws_iam_policy" "efs_csi_iam_policy" {
 }
 
 output "efs_csi_iam_policy_arn" {
-  value = aws_iam_policy.efs_csi_iam_policy.arn 
+  value = aws_iam_policy.efs_csi_iam_policy.arn
 }
 
 # Resource: Create IAM Role and associate the EFS IAM Policy to it
@@ -28,9 +28,9 @@ resource "aws_iam_role" "efs_csi_iam_role" {
         }
         Condition = {
           StringEquals = {
-            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub": "system:serviceaccount:kube-system:efs-csi-controller-sa"
+            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub" : "system:serviceaccount:kube-system:efs-csi-controller-sa"
           }
-        }        
+        }
       },
     ]
   })
@@ -42,12 +42,12 @@ resource "aws_iam_role" "efs_csi_iam_role" {
 
 # Associate EFS CSI IAM Policy to EFS CSI IAM Role
 resource "aws_iam_role_policy_attachment" "efs_csi_iam_role_policy_attach" {
-  policy_arn = aws_iam_policy.efs_csi_iam_policy.arn 
+  policy_arn = aws_iam_policy.efs_csi_iam_policy.arn
   role       = aws_iam_role.efs_csi_iam_role.name
 }
 
 output "efs_csi_iam_role_arn" {
   description = "EFS CSI IAM Role ARN"
-  value = aws_iam_role.efs_csi_iam_role.arn
+  value       = aws_iam_role.efs_csi_iam_role.arn
 }
 

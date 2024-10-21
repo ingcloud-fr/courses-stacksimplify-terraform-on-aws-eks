@@ -132,8 +132,8 @@ Observation:
 Changes to Outputs:
   ~ acm_certificate_status = "PENDING_VALIDATION" -> "ISSUED"
 Outputs:
-acm_certificate_arn = "arn:aws:acm:us-east-1:180789647333:certificate/06033cd0-3ecb-4069-8679-b54ea6678f5a"
-acm_certificate_id = "arn:aws:acm:us-east-1:180789647333:certificate/06033cd0-3ecb-4069-8679-b54ea6678f5a"
+acm_certificate_arn = "arn:aws:acm:eu-west-3:180789647333:certificate/06033cd0-3ecb-4069-8679-b54ea6678f5a"
+acm_certificate_id = "arn:aws:acm:eu-west-3:180789647333:certificate/06033cd0-3ecb-4069-8679-b54ea6678f5a"
 acm_certificate_status = "ISSUED"
 ```
 

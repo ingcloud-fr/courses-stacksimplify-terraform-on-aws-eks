@@ -100,7 +100,7 @@ spec:
 ```t
 # Configure kubeconfig for kubectl
 aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region us-east-1 update-kubeconfig --name hr-dev-eksdemo1
+aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
 kubectl get nodes
@@ -119,7 +119,7 @@ kubectl get pods
 # Verify Ingress (Make a note of Address field)
 kubectl get ingress
 Obsevation: 
-1. Verify the ADDRESS value, we should see something like "ingress-basics-1334515506.us-east-1.elb.amazonaws.com"
+1. Verify the ADDRESS value, we should see something like "ingress-basics-1334515506.eu-west-3.elb.amazonaws.com"
 
 # Describe Ingress Controller
 kubectl describe ingress ingress-nginxapp1
@@ -141,7 +141,7 @@ or
 http://<INGRESS-ADDRESS-FIELD>
 
 # Sample from my environment (for reference only)
-http://ingress-basics-154912460.us-east-1.elb.amazonaws.com
+http://ingress-basics-154912460.eu-west-3.elb.amazonaws.com
 
 # Verify AWS Load Balancer Controller logs
 kubectl get po -n kube-system 
@@ -181,7 +181,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-on-aws-eks"
     key    = "dev/aws-lbc-ingress/terraform.tfstate"
-    region = "us-east-1" 
+    region = "eu-west-3" 
 
     # For State Locking
     dynamodb_table = "dev-aws-lbc-ingress"    
@@ -198,7 +198,7 @@ data "terraform_remote_state" "eks" {
   config = {
     bucket = "terraform-on-aws-eks"
     key    = "dev/eks-cluster/terraform.tfstate"
-    region = "us-east-1"
+    region = "eu-west-3"
   }
 }
 ```
@@ -208,7 +208,7 @@ data "terraform_remote_state" "eks" {
 ```t
 # Terraform AWS Provider Block
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-3"
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -358,7 +358,7 @@ kubectl get pods
 # Verify Ingress (Make a note of Address field)
 kubectl get ingress
 Obsevation: 
-1. Verify the ADDRESS value, we should see something like "ingress-basics-1334515506.us-east-1.elb.amazonaws.com"
+1. Verify the ADDRESS value, we should see something like "ingress-basics-1334515506.eu-west-3.elb.amazonaws.com"
 
 # List Services
 kubectl get svc
@@ -375,7 +375,7 @@ or
 http://<INGRESS-ADDRESS-FIELD>
 
 # Sample from my environment (for reference only)
-http://ingress-basics-154912460.us-east-1.elb.amazonaws.com
+http://ingress-basics-154912460.eu-west-3.elb.amazonaws.com
 ```
 
 ## Step-15: Clean-Up Ingress

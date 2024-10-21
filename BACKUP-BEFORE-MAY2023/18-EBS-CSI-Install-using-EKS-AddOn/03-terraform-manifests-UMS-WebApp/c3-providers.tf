@@ -1,6 +1,6 @@
 # Terraform AWS Provider Block
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-3"
 }
 
 # Datasource: EKS Cluster
