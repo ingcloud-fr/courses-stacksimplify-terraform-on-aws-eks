@@ -627,30 +627,73 @@ Observation:
 - Our core focus here is to learn [terraform taint command](https://www.terraform.io/cli/commands/taint)
 ```t
 # Change Directory
-cd 13-EKS-IRSA/02-eks-irsa-demo-terraform-manifests
+$ cd 13-EKS-IRSA/02-eks-irsa-demo-terraform-manifests
 
 # List Terraform Resources
-terraform state list
+$ terraform state list
+data.aws_eks_cluster.cluster
+data.aws_eks_cluster_auth.cluster
+data.terraform_remote_state.eks
+aws_iam_role.irsa_iam_role
+aws_iam_role_policy_attachment.irsa_iam_role_policy_attach
+kubernetes_job_v1.irsa_demo
+kubernetes_service_account_v1.irsa_demo_sa
 
 # Taint Kubernetes Job
-terraform taint kubernetes_job_v1.irsa_demo
+$ terraform taint kubernetes_job_v1.irsa_demo
+Resource instance kubernetes_job_v1.irsa_demo has been marked as tainted.
+
 Observation: 
 1. Terraform taint will ensure the resource will get destroyed and recreated during next terraform apply.
 
 # Terraform Plan
-terraform plan
+$ terraform plan
+...
+  # kubernetes_job_v1.irsa_demo is tainted, so must be replaced
+ -/+ resource "kubernetes_job_v1" "irsa_demo" {
+      ~ id                  = "default/irsa-demo" -> (known after apply)
+        # (1 unchanged attribute hidden)
+...
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+
 Observation: 
 1. We should see a message  "kubernetes_job_v1.irsa_demo is tainted, so must be replaced"
 
 # Terraform Plan
-terraform apply -auto-approve
+$ terraform apply -auto-approve
+Plan: 1 to add, 0 to change, 1 to destroy.
+kubernetes_job_v1.irsa_demo: Destroying... [id=default/irsa-demo]
+kubernetes_job_v1.irsa_demo: Destruction complete after 0s
+kubernetes_job_v1.irsa_demo: Creating...
+kubernetes_job_v1.irsa_demo: Creation complete after 7s [id=default/irsa-demo]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+irsa_iam_role_arn = "arn:aws:iam::851725523446:role/hr-dev-irsa-iam-role"
+
+
+
 Observation:
 1. Resource kubernetes_job_v1.irsa_demo should be destroyed and recreated.
 
 # Verify Kubernetes Job
-kubectl get job
-kubectl describe job irsa-demo
-kubectl logs -f -l app=irsa-demo
+$ kubectl get job
+NAME        STATUS     COMPLETIONS   DURATION   AGE
+irsa-demo   Complete   1/1           5s         47s
+
+$ kubectl describe job irsa-demo
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  107s  job-controller  Created pod: irsa-demo-2p8gf
+  Normal  Completed         102s  job-controller  Job completed
+
+$ kubectl logs -f -l app=irsa-demo
+2024-10-21 11:16:42 ingcloud-terraform-state
+
 Observation:
 1. k8s Job should run successfully.
 ```
@@ -660,23 +703,55 @@ Observation:
 - Instead of `terraform taint` we can also use `terraform apply -replace` command
 ```t
 # Change Directory
-cd 13-EKS-IRSA/02-eks-irsa-demo-terraform-manifests
+$ cd 13-EKS-IRSA/02-eks-irsa-demo-terraform-manifests
 
 # List Terraform Resources
-terraform state list
+$ terraform state list
+data.aws_eks_cluster.cluster
+data.aws_eks_cluster_auth.cluster
+data.terraform_remote_state.eks
+aws_iam_role.irsa_iam_role
+aws_iam_role_policy_attachment.irsa_iam_role_policy_attach
+kubernetes_job_v1.irsa_demo
+kubernetes_service_account_v1.irsa_demo_sa
 
 # Verify AGE column of job before running replace
 kubectl get job irsa-demo
+NAME        STATUS     COMPLETIONS   DURATION   AGE
+irsa-demo   Complete   1/1           5s         2m49s
 
 # Terraform Apply with "-replace" option for Kubernetes Job
-terraform apply -replace kubernetes_job_v1.irsa_demo 
+$ terraform apply -replace kubernetes_job_v1.irsa_demo 
+...
+Terraform will perform the following actions:
+
+  # kubernetes_job_v1.irsa_demo will be replaced, as requested
+ -/+ resource "kubernetes_job_v1" "irsa_demo" {
+      ~ id                  = "default/irsa-demo" -> (known after apply)
+        # (1 unchanged attribute hidden)
+  ...
+kubernetes_job_v1.irsa_demo: Destroying... [id=default/irsa-demo]
+kubernetes_job_v1.irsa_demo: Destruction complete after 1s
+kubernetes_job_v1.irsa_demo: Creating...
+kubernetes_job_v1.irsa_demo: Creation complete after 8s [id=default/irsa-demo]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+irsa_iam_role_arn = "arn:aws:iam::851725523446:role/hr-dev-irsa-iam-role"
+
 Observation: 
+
 1. Terraform apply  with "replace" option will ensure the existing resource will get destroyed and recreated with single command.
 
 # Verify Kubernetes Job
-kubectl get job
-kubectl describe job irsa-demo
-kubectl logs -f -l app=irsa-demo
+$ kubectl get job
+NAME        STATUS     COMPLETIONS   DURATION   AGE
+irsa-demo   Complete   1/1           6s         79s
+
+$ kubectl describe job irsa-demo
+$ kubectl logs -f -l app=irsa-demo
 Observation:
 1. k8s Job should run successfully.
 ```
@@ -684,15 +759,29 @@ Observation:
 - Delete the k8s Job with `kubectl` and create it with `terraform apply`
 ```t
 # Delete the Job with kubectl
-kubectl delete job irsa-demo
+$ kubectl delete job irsa-demo
+job.batch "irsa-demo" deleted
 
 # Run terraform plan
-terraform plan
+$ terraform plan
+...
+Plan: 1 to add, 0 to change, 0 to destroy.
+
 Observation:
 1. It will show that 1 resource to be created which is irsa-demo job
 
 # Run terraform apply
-terraform apply -auto-approve
+$ terraform apply -auto-approve
+...
+Plan: 1 to add, 0 to change, 0 to destroy.
+kubernetes_job_v1.irsa_demo: Creating...
+kubernetes_job_v1.irsa_demo: Creation complete after 8s [id=default/irsa-demo]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+irsa_iam_role_arn = "arn:aws:iam::851725523446:role/hr-dev-irsa-iam-role"
+
 Observation:
 1. We should see that irsa-demo job created succesfully
 
