@@ -17,33 +17,33 @@ description: Learn the concept EKS IRSA - IAM Roles for Service Accounts
 
 ### IRSA et OIDC
 
+#### Pourquoi utiliser IRSA ?
 
+Avant IRSA, toutes les applications qui tournaient sur un même serveur ou nœud (une machine virtuelle dans EKS) partageaient les mêmes permissions AWS. Cela posait un problème de sécurité, car certaines applications pouvaient avoir plus de droits que nécessaire.
 
+Avec IRSA, chaque application (ou pod) peut avoir ses propres permissions AWS, donc chaque application obtient uniquement les droits dont elle a besoin pour faire son travail. C'est beaucoup plus sécurisé et respecte le principe du moindre privilège (donner uniquement les droits nécessaires).
 
-![IMAGES](./img/3.png)
+![IMAGES](./img/1.png)
+
 
 #### IRSA (IAM Roles for Service Accounts)
 
 IRSA est une fonctionnalité qui permet à des applications qui tournent sur Amazon EKS (Elastic Kubernetes Service) d'accéder de manière sécurisée aux ressources AWS (comme S3, DynamoDB, LD, EBS, etc.). Elle permet à chaque application ou service de n'avoir que les permissions nécessaires, et pas plus.
 
-
-
 Dans un cluster Kubernetes, les applications tournent dans des pods, qui sont gérés par des comptes de service (service accounts). Avec IRSA, on peut associer un compte de service à un rôle IAM spécifique, qui définit les permissions de l'application. Cela permet d'accéder aux ressources AWS sans donner trop de permissions à d'autres applications sur le même cluster.
 
-IAM (Identity and Access Management)
+#### IAM (Identity and Access Management)
+
 IAM est le système de gestion des permissions dans AWS. Il permet de créer des rôles et des politiques pour définir qui peut accéder à quelles ressources. Dans le cadre d'IRSA, on utilise IAM pour créer des rôles spécifiques à chaque application dans Kubernetes, avec des permissions précises.
 
 #### OIDC (OpenID Connect)
 
 OIDC est un protocole utilisé pour vérifier l'identité des applications. Dans le cas d'IRSA, OIDC permet de lier de manière sécurisée un compte de service Kubernetes à un rôle IAM. AWS utilise ce protocole pour s'assurer que c'est bien l'application autorisée qui demande les permissions.
 
-![IMAGES](./img/1.png)
+![IMAGES](./img/3.png)
 
-#### Pourquoi utiliser IRSA ?
 
-Avant IRSA, toutes les applications qui tournaient sur un même serveur ou nœud (une machine virtuelle dans EKS) partageaient les mêmes permissions AWS. Cela posait un problème de sécurité, car certaines applications pouvaient avoir plus de droits que nécessaire.
 
-Avec IRSA, chaque application (ou pod) peut avoir ses propres permissions AWS, donc chaque application obtient uniquement les droits dont elle a besoin pour faire son travail. C'est beaucoup plus sécurisé et respecte le principe du moindre privilège (donner uniquement les droits nécessaires).
 
 #### Résumé simplifié :
 
