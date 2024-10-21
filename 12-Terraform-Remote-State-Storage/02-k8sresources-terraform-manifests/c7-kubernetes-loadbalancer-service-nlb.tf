@@ -1,5 +1,6 @@
-
-# Kubernetes Service Manifest (Type: Load Balancer)
+# Kubernetes Service Manifest (Type: Network Load Balancer)
+# Couche 4 pour les protocoles autres que HTTP/HTTPS
+# Bien plus puissant que le ALB ou CLB (Classic LB - Déprécié)
 resource "kubernetes_service_v1" "lb_service_nlb" {
   metadata {
     name = "myapp1-lb-service-nlb"

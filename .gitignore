@@ -1,6 +1,7 @@
 # Local .terraform directories
 **/.terraform/*
 .DS_Store
+**/.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate
@@ -14,6 +15,7 @@ crash.log
 # version control.
 #
 # example.tfvars
+**/terraform-outputs.txt
 
 **/eks-terraform-key.pem
 eks-terraform-key.pem

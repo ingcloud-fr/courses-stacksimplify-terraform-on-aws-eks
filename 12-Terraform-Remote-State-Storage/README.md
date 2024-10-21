@@ -152,7 +152,6 @@ data "terraform_remote_state" "eks" {
 }
 ```
 
-
 ## Step-09: Create Kubernetes Resources: Execute Terraform Commands
 ```t
 # Change Directory
@@ -213,13 +212,12 @@ Observation:
 kubectl get svc
 kubectl get svc -o wide
 Observation:
-1. We should see both Load Balancer Service and NodePort service created
+1. We should see both Load Balancer Service (NLB and CLB for testing) and NodePort service created
 
 # Access Sample Application on Browser
 http://<LB-DNS-NAME>
 http://abb2f2b480148414f824ed3cd843bdf0-805914492.eu-west-3.elb.amazonaws.com
 ```
-
 
 ## Step-12: Verify Kubernetes Resources via AWS Management console
 1. Go to Services -> EC2 -> Load Balancing -> Load Balancers

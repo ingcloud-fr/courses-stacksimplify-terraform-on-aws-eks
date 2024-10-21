@@ -15,6 +15,43 @@ description: Learn the concept EKS IRSA - IAM Roles for Service Accounts
 5. [Terraform merge Function](https://www.terraform.io/language/functions/merge)
 6. [Terraform JSONEncode Function](https://www.terraform.io/language/functions/jsonencode)
 
+### IRSA et OIDC
+
+
+
+
+#### IRSA (IAM Roles for Service Accounts)
+
+IRSA est une fonctionnalité qui permet à des applications qui tournent sur Amazon EKS (Elastic Kubernetes Service) d'accéder de manière sécurisée aux ressources AWS (comme S3, DynamoDB, LD, EBS, etc.). Elle permet à chaque application ou service de n'avoir que les permissions nécessaires, et pas plus.
+
+![IMAGES](./img/1.png)
+
+Dans un cluster Kubernetes, les applications tournent dans des pods, qui sont gérés par des comptes de service (service accounts). Avec IRSA, on peut associer un compte de service à un rôle IAM spécifique, qui définit les permissions de l'application. Cela permet d'accéder aux ressources AWS sans donner trop de permissions à d'autres applications sur le même cluster.
+
+IAM (Identity and Access Management)
+IAM est le système de gestion des permissions dans AWS. Il permet de créer des rôles et des politiques pour définir qui peut accéder à quelles ressources. Dans le cadre d'IRSA, on utilise IAM pour créer des rôles spécifiques à chaque application dans Kubernetes, avec des permissions précises.
+
+#### OIDC (OpenID Connect)
+
+OIDC est un protocole utilisé pour vérifier l'identité des applications. Dans le cas d'IRSA, OIDC permet de lier de manière sécurisée un compte de service Kubernetes à un rôle IAM. AWS utilise ce protocole pour s'assurer que c'est bien l'application autorisée qui demande les permissions.
+
+#### Pourquoi utiliser IRSA ?
+
+Avant IRSA, toutes les applications qui tournaient sur un même serveur ou nœud (une machine virtuelle dans EKS) partageaient les mêmes permissions AWS. Cela posait un problème de sécurité, car certaines applications pouvaient avoir plus de droits que nécessaire.
+
+Avec IRSA, chaque application (ou pod) peut avoir ses propres permissions AWS, donc chaque application obtient uniquement les droits dont elle a besoin pour faire son travail. C'est beaucoup plus sécurisé et respecte le principe du moindre privilège (donner uniquement les droits nécessaires).
+
+#### Résumé simplifié :
+
+- IRSA permet à chaque application dans un cluster EKS d'avoir ses propres permissions AWS.
+- IAM gère les rôles et permissions dans AWS.
+- OIDC est le système qui vérifie que l'application est bien autorisée à utiliser ces permissions.
+
+IRSA permet donc de mieux protéger et contrôler l'accès aux services AWS depuis Kubernetes en donnant les permissions juste nécessaires à chaque application.
+
+![IMAGES](./img/2.png)
+![IMAGES](./img/3.png)
+
 ## Step-02: Verify Terraform State Storage - EKS Cluster
 - **Folder:** `13-EKS-IRSA/01-ekscluster-terraform-manifests`
 - Verify Terraform State Storage S3 Bucket in `c1-versions.tf` and AWS Mgmt Console
