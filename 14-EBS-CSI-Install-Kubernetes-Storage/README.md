@@ -18,6 +18,14 @@ description: Learn to implement EKS IAM Role for Kubernetes Service Accounts
    - Terraform HELM Release   
    - Terraform HTTP Datasource
 
+### Slides
+
+![IMAGES](./img/1.png)
+![IMAGES](./img/2.png)
+![IMAGES](./img/3.png)
+![IMAGES](./img/4.png)
+![IMAGES](./img/5.png)
+
 
 ## Step-02: Verify Terraform State Storage - EKS Cluster
 - **Folder:** `14-EBS-CSI-Install-Kubernetes-Storage/01-ekscluster-terraform-manifests`
