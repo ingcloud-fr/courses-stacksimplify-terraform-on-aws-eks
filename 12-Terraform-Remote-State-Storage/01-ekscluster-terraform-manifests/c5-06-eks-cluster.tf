@@ -45,7 +45,6 @@ resource "aws_eks_cluster" "eks_cluster" {
     Environment = var.environment
   }
 
-
   # Le bloc `depends_on` assure que les ressources IAM (politiques et rôles) sont créées avant la création du cluster EKS.
   # Sans cela, EKS pourrait rencontrer des erreurs lors de la gestion de l'infrastructure sous-jacente (comme les groupes de sécurité).
   depends_on = [
