@@ -10,7 +10,7 @@ terraform {
   }
   # Adding Backend as S3 for Remote State Storage
   backend "s3" {
-    bucket = "terraform-on-aws-eks"
+    bucket = "ingcloud-terraform-state"
     key    = "dev/eks-irsa-demo/terraform.tfstate"
     region = "eu-west-3"
 

@@ -235,6 +235,18 @@ vpc_id = "vpc-076f0a532d075cfc6"
 ...
 ```
 
+On peut voir dans AWS > IAM > Fournisseurs d'identité
+
+![IMAGES](./img/7.png)
+
+L'audience (client_id_list) qui est : sts.amazonaws.com
+
+![IMAGES](./img/9.png)
+
+Et dans le cluster EKS :
+
+![IMAGES](./img/8.png)
+
 ## Step-09: Configure Kubeconfig for kubectl
 ```t
 # Configure kubeconfig for kubectl
@@ -262,19 +274,6 @@ Go to Services -> EKS -> hr-dev-eksdemo1 -> Configuration -> Details -> OpenID C
 # Sample
 https://oidc.eks.eu-west-3.amazonaws.com/id/EC973221A6C1BC248C79CFD5455EEECC/.well-known/openid-configuration
 ```
-On peut voir dans AWS > IAM > Fournisseurs d'identité
-
-![IMAGES](./img/7.png)
-
-L'audience (client_id_list) qui est : sts.amazonaws.com
-
-![IMAGES](./img/9.png)
-
-Et dans le cluster EKS :
-
-![IMAGES](./img/8.png)
-
-
 - **Sample Output from EKS OpenID Connect Well Known Configuration URL**
 ```json
 // 20220106104407
@@ -299,7 +298,6 @@ Et dans le cluster EKS :
   ]
 }
 ```
-
 
 ## Step-10: Pre-requisite-1: Create folder in S3 Bucket (Optional)
 - This step is optional, Terraform can create this folder `dev/ebs-storage` during `terraform apply` but to maintain consistency we create it. 
@@ -532,26 +530,95 @@ terraform validate
 terraform plan
 
 # Terraform Apply
-terraform apply -auto-approve
+$ terraform apply -auto-approve
+...
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+irsa_iam_role_arn = "arn:aws:iam::851725523446:role/hr-dev-irsa-iam-role"
 ```
 
 ## Step-22: Verify Resources
 ```t
 # Verify Kubernetes Service Account
-kubectl get sa
-kubectl describe sa irsa-demo-sa
+$ kubectl get sa
+NAME           SECRETS   AGE
+default        0         54m
+irsa-demo-sa   0         106s
+
+$ kubectl describe sa irsa-demo-sa
+Name:                irsa-demo-sa
+Namespace:           default
+Labels:              <none>
+Annotations:         eks.amazonaws.com/role-arn: arn:aws:iam::851725523446:role/hr-dev-irsa-iam-role
+Image pull secrets:  <none>
+Mountable secrets:   <none>
+Tokens:              <none>
+Events:              <none>
+
 Observation:
 1. We can see that IAM Role ARN is associated in Annotations field of Kubernetes Service Account
 
 # List & Describe Kubernetes Jobs
-kubectl get job
-kubectl describe job irsa-demo
+$ kubectl get job
+NAME        STATUS     COMPLETIONS   DURATION   AGE
+irsa-demo   Complete   1/1           16s        2m38s
+
+$ kubectl describe job irsa-demo
+Name:             irsa-demo
+Namespace:        default
+Selector:         batch.kubernetes.io/controller-uid=bba9ec60-5559-495c-b0d7-6ca9729870fd
+Labels:           app=irsa-demo
+                  batch.kubernetes.io/controller-uid=bba9ec60-5559-495c-b0d7-6ca9729870fd
+                  batch.kubernetes.io/job-name=irsa-demo
+                  controller-uid=bba9ec60-5559-495c-b0d7-6ca9729870fd
+                  job-name=irsa-demo
+Annotations:      <none>
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    6
+Start Time:       Mon, 21 Oct 2024 20:24:15 +0200
+Completed At:     Mon, 21 Oct 2024 20:24:31 +0200
+Duration:         16s
+Pods Statuses:    0 Active (0 Ready) / 1 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app=irsa-demo
+                    batch.kubernetes.io/controller-uid=bba9ec60-5559-495c-b0d7-6ca9729870fd
+                    batch.kubernetes.io/job-name=irsa-demo
+                    controller-uid=bba9ec60-5559-495c-b0d7-6ca9729870fd
+                    job-name=irsa-demo
+  Service Account:  irsa-demo-sa
+  Containers:
+   irsa-demo:
+    Image:      amazon/aws-cli:latest
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      s3
+      ls
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age    From            Message
+  ----    ------            ----   ----            -------
+  Normal  SuccessfulCreate  2m55s  job-controller  Created pod: irsa-demo-jd86r
+  Normal  Completed         2m39s  job-controller  Job completed
+
+
 Observation:
 1. You should see COMPLETIONS 1/1
 2. You should see when you describe Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
 
 # Verify Logs (by giving job label app=irsa-demo)
-kubectl logs -f -l app=irsa-demo
+$ kubectl logs -f -l app=irsa-demo
+2024-10-21 11:16:42 ingcloud-terraform-state
+
 Observation: 
 1. You can see all the S3 buckets from your AWS account listed
 ```
