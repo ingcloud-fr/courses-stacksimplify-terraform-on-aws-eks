@@ -200,6 +200,15 @@ aws_iam_openid_connect_provider_arn = "arn:aws:iam::851725523446:oidc-provider/o
 aws_iam_openid_connect_provider_extract_from_arn = "oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
 ...
 ```
+
+On peut voir dans AWS > IAM > Fournisseurs d'identité
+
+![IMAGES](./img/7.png)
+
+Et dans le cluster EKS :
+
+![IMAGES](./img/8.png)
+
 ## Step-09: Configure Kubeconfig for kubectl
 ```t
 # Configure kubeconfig for kubectl
