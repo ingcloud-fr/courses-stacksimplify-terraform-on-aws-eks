@@ -198,6 +198,40 @@ Outputs:
 
 aws_iam_openid_connect_provider_arn = "arn:aws:iam::851725523446:oidc-provider/oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
 aws_iam_openid_connect_provider_extract_from_arn = "oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
+azs = tolist([
+  "eu-west-3a",
+  "eu-west-3b",
+  "eu-west-3c",
+])
+cluster_arn = "arn:aws:eks:eu-west-3:851725523446:cluster/hr-dev-eksdemo1"
+cluster_certificate_authority_data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJVTc1OWp6YWtpYWN3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSb...
+JRklDQVRFLS0tLS0K"
+cluster_endpoint = "https://E0A35709C01020F10A8D090CED7E6AD8.gr7.eu-west-3.eks.amazonaws.com"
+cluster_iam_role_arn = "arn:aws:iam::851725523446:role/hr-dev-eks-master-role"
+cluster_iam_role_name = "hr-dev-eks-master-role"
+cluster_id = "hr-dev-eksdemo1"
+cluster_oidc_issuer_url = "https://oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
+cluster_primary_security_group_id = "sg-05f73dbfbc0c68f2c"
+cluster_version = "1.31"
+ec2_bastion_public_instance_ids = "i-01e3b9fbf8f5c71d4"
+ec2_bastion_public_ip = "52.47.58.125"
+nat_public_ips = tolist([
+  "13.36.148.101",
+])
+node_group_public_arn = "arn:aws:eks:eu-west-3:851725523446:nodegroup/hr-dev-eksdemo1/hr-dev-eks-ng-public/bac95811-ec83-abf5-ba37-cba07ba65d4d"
+node_group_public_id = "hr-dev-eksdemo1:hr-dev-eks-ng-public"
+node_group_public_status = "ACTIVE"
+node_group_public_version = "1.31"
+private_subnets = [
+  "subnet-08c2507514e37465c",
+  "subnet-083fc349173bc81df",
+]
+public_subnets = [
+  "subnet-0262a0258ff93784a",
+  "subnet-05479901dbb2785fb",
+]
+vpc_cidr_block = "10.0.0.0/16"
+vpc_id = "vpc-076f0a532d075cfc6"
 ...
 ```
 
