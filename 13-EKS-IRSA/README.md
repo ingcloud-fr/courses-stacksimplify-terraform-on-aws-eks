@@ -239,6 +239,10 @@ On peut voir dans AWS > IAM > Fournisseurs d'identité
 
 ![IMAGES](./img/7.png)
 
+L'audience (client_id_list) qui est : sts.amazonaws.com
+
+![IMAGES](./img/9.png)
+
 Et dans le cluster EKS :
 
 ![IMAGES](./img/8.png)
