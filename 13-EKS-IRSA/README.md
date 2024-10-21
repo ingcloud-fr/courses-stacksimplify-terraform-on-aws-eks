@@ -191,6 +191,14 @@ terraform plan
 
 # Terraform Apply
 terraform apply -auto-approve
+...
+Apply complete! Resources: 41 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+aws_iam_openid_connect_provider_arn = "arn:aws:iam::851725523446:oidc-provider/oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
+aws_iam_openid_connect_provider_extract_from_arn = "oidc.eks.eu-west-3.amazonaws.com/id/E0A35709C01020F10A8D090CED7E6AD8"
+...
 ```
 ## Step-09: Configure Kubeconfig for kubectl
 ```t

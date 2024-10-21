@@ -1,7 +1,7 @@
 # Input Variables - AWS IAM OIDC Connect Provider
 
-
 # EKS OIDC ROOT CA Thumbprint - valid until 2037
+# Possibilité de le récupérer avec datasource, mais ce n'est pas la peine, ca ne bouge jamais.
 variable "eks_oidc_root_ca_thumbprint" {
   type        = string
   description = "Thumbprint of Root CA for EKS OIDC, Valid until 2037"
