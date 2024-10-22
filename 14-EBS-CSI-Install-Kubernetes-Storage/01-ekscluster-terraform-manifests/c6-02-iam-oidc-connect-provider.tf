@@ -14,7 +14,7 @@ resource "aws_iam_openid_connect_provider" "oidc_provider" {
   # Ici, il utilise le service STS (Security Token Service) pour l'authentification, qui dépend du suffixe DNS de la 
   # partition AWS (comme amazonaws.com pour les régions publiques).
   # Un truc comme sts.amazonaws.xxx.com (ie des clients sts amazon)
-  client_id_list  = ["sts.${data.aws_partition.current.dns_suffix}"]
+  client_id_list = ["sts.${data.aws_partition.current.dns_suffix}"]
 
   # thumbprint_list est la liste des empreintes numériques des certificats racines (CA) utilisés 
   # pour sécuriser les communications OIDC.
@@ -22,7 +22,7 @@ resource "aws_iam_openid_connect_provider" "oidc_provider" {
 
   # url correspond à l'URL du fournisseur OIDC de ton cluster EKS, qui est récupérée depuis l'identité du cluster EKS.
   # Cela permet de lier le cluster EKS à ce fournisseur OIDC.
-  url             = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  url = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
 
   # Ajoute des balises (tags) à la ressource OIDC pour une gestion plus facile dans AWS.
   # Le nom du tag inclut le nom du cluster, et d'autres balises communes (maps) sont fusionnées 
