@@ -395,15 +395,25 @@ ebs_csi_helm_metadata = tolist([
 ## Step-19: Verify EBS CSI Driver Install on EKS Cluster
 ```t
 # Configure kubeconfig for kubectl (Optional - If already not configured)
-aws eks --region <region-code> update-kubeconfig --name <cluster_name>
-aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
+$ aws eks --region <region-code> update-kubeconfig --name <cluster_name>
+$ aws eks --region eu-west-3 update-kubeconfig --name hr-dev-eksdemo1
 
 # Verify Kubernetes Worker Nodes using kubectl
-kubectl get nodes
+$ kubectl get nodes
+NAME                                        STATUS   ROLES    AGE   VERSION
+ip-10-0-102-12.eu-west-3.compute.internal   Ready    <none>   91m   v1.31.0-eks-a737599
+
 kubectl get nodes -o wide
 
 # Verify EBS CSI Pods
-kubectl -n kube-system get pods 
+$ kubectl -n kube-system get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+...
+ebs-csi-controller-9c9589d4f-g6x6d   5/5     Running   0          16m
+ebs-csi-controller-9c9589d4f-mdc92   5/5     Running   0          16m
+ebs-csi-node-jvrkc                   3/3     Running   0          16m
+...
+
 Observation: We should see below two pod types from EBS CSI Driver running in kube-system namespace
 1. ebs-csi-controller pods
 2. ebs-csi-node pods
@@ -412,24 +422,70 @@ Observation: We should see below two pod types from EBS CSI Driver running in ku
 ## Step-20: Describe EBS CSI Controller Deployment
 ```t
 # Describe EBS CSI Deployment
-kubectl -n kube-system get deploy 
-kubectl -n kube-system describe deploy ebs-csi-controller 
+$ kubectl -n kube-system get deploy
+NAME                 READY   UP-TO-DATE   AVAILABLE   AGE
+coredns              2/2     2            2           109m
+ebs-csi-controller   2/2     2            2           17m
+
+$ kubectl -n kube-system describe deploy ebs-csi-controller 
+Name:                   ebs-csi-controller
+Namespace:              kube-system
+...
+Labels:                 app.kubernetes.io/component=csi-driver
+                        ...
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=aws-ebs-csi-driver
+                        ...
+
 
 Observation: ebs-csi-controller Deployment 
 1. ebs-csi-controller deployment creates a pod which is a multi-container pod
 2. Rarely we get in Kubernetes to explore Multi-Container pod concept, so lets explore it here.
-3. Each "ebs-csi-controller", contains following containers
+3. Because each "ebs-csi-controller", contains following containers
   - ebs-plugin
   - csi-provisioner
   - csi-attacher
   - csi-resizer
   - liveness-probe
 ```
+
 ## Step-21: Describe EBS CSI Controller Pod
 ```t
 # Describe EBS CSI Controller Pod
-kubectl -n kube-system get pods 
-kubectl -n kube-system describe pod ebs-csi-controller-56dfd4fccc-7fgbr
+$ kubectl -n kube-system get pods 
+NAME                                 READY   STATUS    RESTARTS   AGE
+...
+ebs-csi-controller-9c9589d4f-g6x6d   5/5     Running   0          23m
+ebs-csi-controller-9c9589d4f-mdc92   5/5     Running   0          23m
+ebs-csi-node-jvrkc                   3/3     Running   0          23m
+...
+
+$ kubectl -n kube-system describe pod ebs-csi-controller-9c9589d4f-g6x6d
+...
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  25m   default-scheduler  Successfully assigned kube-system/ebs-csi-controller-9c9589d4f-g6x6d to ip-10-0-102-12.eu-west-3.compute.internal
+  Normal  Pulling    25m   kubelet            Pulling image "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver:v1.36.0"
+  Normal  Pulled     25m   kubelet            Successfully pulled image "602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver:v1.36.0" in 1.607s (1.607s including waiting). Image size: 30580623 bytes.
+  Normal  Created    25m   kubelet            Created container ebs-plugin
+  Normal  Started    25m   kubelet            Started container ebs-plugin
+  Normal  Pulling    25m   kubelet            Pulling image "public.ecr.aws/eks-distro/kubernetes-csi/external-provisioner:v5.1.0-eks-1-31-5"
+  Normal  Pulled     25m   kubelet            Successfully pulled image "public.ecr.aws/eks-distro/kubernetes-csi/external-provisioner:v5.1.0-eks-1-31-5" in 2.868s (2.869s including waiting). Image size: 16944930 bytes.
+  Normal  Created    25m   kubelet            Created container csi-provisioner
+  Normal  Started    25m   kubelet            Started container csi-provisioner
+  Normal  Pulling    25m   kubelet            Pulling image "public.ecr.aws/eks-distro/kubernetes-csi/external-attacher:v4.7.0-eks-1-31-5"
+  Normal  Pulled     25m   kubelet            Successfully pulled image "public.ecr.aws/eks-distro/kubernetes-csi/external-attacher:v4.7.0-eks-1-31-5" in 2.509s (2.509s including waiting). Image size: 16415167 bytes.
+  Normal  Created    25m   kubelet            Created container csi-attacher
+  Normal  Started    25m   kubelet            Started container csi-attacher
+  Normal  Pulling    25m   kubelet            Pulling image "public.ecr.aws/eks-distro/kubernetes-csi/external-resizer:v1.12.0-eks-1-31-5"
+  Normal  Pulled     25m   kubelet            Successfully pulled image "public.ecr.aws/eks-distro/kubernetes-csi/external-resizer:v1.12.0-eks-1-31-5" in 2.59s (2.59s including waiting). Image size: 16317471 bytes.
+  Normal  Created    25m   kubelet            Created container csi-resizer
+  Normal  Started    25m   kubelet            Started container csi-resizer
+  Normal  Pulled     25m   kubelet            Container image "public.ecr.aws/eks-distro/kubernetes-csi/livenessprobe:v2.14.0-eks-1-31-5" already present on machine
+  Normal  Created    25m   kubelet            Created container liveness-probe
+  Normal  Started    25m   kubelet            Started container liveness-probe
+
 
 Observations:
 1. In the Pod Events, you can multiple containers will be pulled and started in a k8s Pod
@@ -441,14 +497,14 @@ Observations:
 kubectl -n kube-system get pods
 kubectl -n kube-system logs -f ebs-csi-controller-56dfd4fccc-7fgbr
 
-# Error we got when checking EBS CSI Controller pod logs
-Kalyans-MacBook-Pro:02-ebs-terraform-manifests kdaida$ kubectl -n kube-system logs -f ebs-csi-controller-56dfd4fccc-7fgbr
+# Error we got when checking EBS CSI Controller pod logs because of multi-containers
+$ kubectl -n kube-system logs -f ebs-csi-controller-56dfd4fccc-7fgbr
 error: a container name must be specified for pod ebs-csi-controller-56dfd4fccc-7fgbr, choose one of: [ebs-plugin csi-provisioner csi-attacher csi-resizer liveness-probe]
-Kalyans-MacBook-Pro:02-ebs-terraform-manifests kdaida$ 
+$ 
 
 # Verify logs of liveness-probe container in EBS CSI Controller Pod
 kubectl -n <NAMESPACE> logs -f <POD-NAME> <CONTAINER-NAME>
-kubectl -n kube-system logs -f liveness-probe 
+kubectl -n kube-system logs -f ebs-csi-controller-56dfd4fccc-7fgbr liveness-probe 
 
 # Verify logs of ebs-plugin container in EBS CSI Controller Pod
 kubectl -n <NAMESPACE> logs -f <POD-NAME> <CONTAINER-NAME>
@@ -497,10 +553,9 @@ Observation:
 # Verify EBS CSI Node Pod logs
 kubectl -n kube-system logs -f ebs-csi-node-qp426
 
-# Error we got when checking EBS CSI Node pod logs
-Kalyans-MacBook-Pro:02-ebs-terraform-manifests kdaida$ kubectl -n kube-system logs -f ebs-csi-node-qp426
+# Error we got when checking EBS CSI Node pod logs because of multiple containers (need to precise the container)
+$ kubectl -n kube-system logs -f ebs-csi-node-qp426
 error: a container name must be specified for pod ebs-csi-node-qp426, choose one of: [ebs-plugin node-driver-registrar liveness-probe]
-Kalyans-MacBook-Pro:02-ebs-terraform-manifests kdaida$ 
 
 # Verify logs of liveness-probe container in EBS CSI Node Pod
 kubectl -n <NAMESPACE> logs -f <POD-NAME> <CONTAINER-NAME>
@@ -515,18 +570,28 @@ kubectl -n <NAMESPACE> logs -f <POD-NAME> <CONTAINER-NAME>
 kubectl -n kube-system logs -f ebs-csi-node-qp426 node-driver-registrar
 ```
 
-
 ## Step-25: Verify EBS CSI Kubernetes Service Accounts
 ```t
 # List EBS CSI  Kubernetes Service Accounts
-kubectl -n kube-system get sa 
+$ kubectl -n kube-system get sa 
+NAME                                          SECRETS   AGE
+...
+ebs-csi-controller-sa                         0         4m31s
+ebs-csi-node-sa                               0         4m31s
+...
+
 Observation:
 1. We should find two service accounts related to EBS CSI
   - ebs-csi-controller-sa
   - ebs-csi-node-sa
 
 # Describe EBS CSI Controller Service Account
-kubectl -n kube-system describe sa ebs-csi-controller-sa
+$ kubectl -n kube-system describe sa ebs-csi-controller-sa
+Name:                ebs-csi-controller-sa
+...
+Annotations:         eks.amazonaws.com/role-arn: arn:aws:iam::851725523446:role/hr-dev-ebs-csi-iam-role
+...
+
 Observation:
 1. Verify the "Annotations" field and you should find our IAM Role created for EBS CSI is associated with EKS Cluster EBS Service Account.
 Annotations:         eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/hr-dev-ebs-csi-iam-role
