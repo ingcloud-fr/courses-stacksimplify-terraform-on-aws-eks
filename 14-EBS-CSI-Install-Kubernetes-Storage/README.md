@@ -371,6 +371,27 @@ terraform apply -auto-approve
 # Verify EBS CSI Outputs
 Mainly verify the output related to HELM RELEASE named "ebs_csi_helm_metadata"
 ```
+
+In the ouput of apply :
+
+```t
+...
+ebs_csi_helm_metadata = tolist([
+  {
+    "app_version" = "1.36.0"
+    "chart" = "aws-ebs-csi-driver"
+    "first_deployed" = 1729588697
+    "last_deployed" = 1729588697
+    "name" = "devops-dev-aws-ebs-csi-driver"
+    "namespace" = "kube-system"
+    "notes" = <<-EOT
+    To verify that aws-ebs-csi-driver has started, run:
+    
+        kubectl get pod -n kube-system -l "app.kubernetes.io/name=aws-ebs-csi-driver,app.kubernetes.io/instance=devops-dev-aws-ebs-csi-driver"
+...
+```
+
+
 ## Step-19: Verify EBS CSI Driver Install on EKS Cluster
 ```t
 # Configure kubeconfig for kubectl (Optional - If already not configured)
