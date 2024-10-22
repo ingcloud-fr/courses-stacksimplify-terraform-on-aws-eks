@@ -2,6 +2,7 @@
 # Ce bloc de données utilise le fournisseur HTTP de Terraform pour récupérer une ressource en ligne.
 # Il télécharge le fichier JSON contenant la politique IAM pour le pilote EBS CSI (Container Storage Interface),
 # directement depuis le dépôt GitHub officiel de Kubernetes.
+
 data "http" "ebs_csi_iam_policy" {
   # URL du fichier contenant la politique IAM pour le pilote EBS CSI.
   # Ce fichier JSON définit les permissions nécessaires pour le bon fonctionnement du pilote.

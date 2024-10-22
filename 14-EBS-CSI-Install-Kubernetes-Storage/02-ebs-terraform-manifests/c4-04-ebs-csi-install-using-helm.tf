@@ -3,21 +3,32 @@
 # Doc : https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
 
 resource "helm_release" "ebs_csi_driver" {
+
+  # C'est l'équilavent Terraform de :
+  # helm upgarde -install ${local.name}-aws-ebs-csi-driver aws-ebs-csi-driver/...
+  #    --namespace kube-system \
+  #    --set image.repository=602401143452.dkr.ecr.eu-west-3.amazonaws.com/eks/aws-ebs-csi-driver \
+  #    --set controller.serviceAccount.create=true \
+  #    --set controller.serviceAccount.name=
+  #    --set ebs-csi-controller-sa=ebs-csi-controller-sa
+  #    --set controller.serviceAccount.annotations."eks\.amazonaws\.com/role-arn"="arn:aws:iam::11111111111:role/AmazonEKS_EBS_CSI_DriverRole"
+
   # La directive "depends_on" garantit que cette ressource ne sera créée qu'après la création du rôle IAM associé.
   # Cela assure que le rôle IAM (et ses permissions) est en place avant l'installation du pilote EBS CSI.
   depends_on = [aws_iam_role.ebs_csi_iam_role]
 
-  # Nom de la release Helm. Ici, il est défini dynamiquement à l'aide d'une variable locale (local.name).
-  name       = "${local.name}-aws-ebs-csi-driver"
+  # Nom de la release Helm. 
+  # Ici, il est défini dynamiquement à l'aide d'une variable locale (local.name).
+  name = "${local.name}-aws-ebs-csi-driver"
 
   # URL du dépôt contenant le chart Helm du pilote EBS CSI. Ce dépôt est maintenu par Kubernetes SIGs (Special Interest Groups).
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
 
   # Nom du chart Helm à installer depuis le dépôt.
-  chart      = "aws-ebs-csi-driver"
+  chart = "aws-ebs-csi-driver"
 
   # Namespace Kubernetes dans lequel le pilote sera installé. "kube-system" est un namespace par défaut pour les composants systèmes de Kubernetes.
-  namespace  = "kube-system"
+  namespace = "kube-system"
 
   # Configuration des paramètres du chart Helm
   set {

@@ -79,6 +79,20 @@ terraform apply -auto-approve
 # List Terraform Resources 
 terraform state list
 ```
+
+We can see the cluster :
+
+![IMAGES](./img/6.png)
+
+The node and the public nodes group :
+
+![IMAGES](./img/7.png)
+
+The OIDC provider in IAM :
+
+![IMAGES](./img/8.png)
+
+
 ## Step-05: Configure Kubeconfig for kubectl
 - If already EKS Cluster kubeconfig is configured, ignore this step
 ```t
